@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import java.io.*;
 import java.util.ArrayList;
 
 public class App {
@@ -8,22 +9,27 @@ public class App {
         ArrayList<Item> inventory = getInventory();
 
         printInventory();
+
+        //BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("items-list.csv"));
+
     }
 
     public static ArrayList<Item> getInventory() {
         ArrayList<Item> inventory = new ArrayList<>();
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("inventory.csv"));
 
-        Item item1 = new Item(1, "Apple", .99);
-        Item item2 = new Item(2, "Pear", 1.99);
-        Item item3 = new Item(3, "Orange", .89);
-        Item item4 = new Item(4, "Banana", .39);
-        Item item5 = new Item(5, "Kiwi", .39);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] fields = line.split("\\|");
 
-        inventory.add(item1);
-        inventory.add(item2);
-        inventory.add(item3);
-        inventory.add(item4);
-        inventory.add(item5);
+                Item item = new Item(Integer.parseInt(fields[0]), fields[1], Double.parseDouble(fields[2]));
+
+            }
+        } catch (IOException e) {
+            //throw new RuntimeException(e);
+            System.out.println("Unable to read file. Please ensure file is in the correct location and try again.");
+        }
 
         return inventory;
     }
