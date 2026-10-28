@@ -10,26 +10,32 @@ public class App {
 
         printInventory();
 
-        //BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("items-list.csv"));
-
     }
 
     public static ArrayList<Item> getInventory() {
         ArrayList<Item> inventory = new ArrayList<>();
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader("inventory.csv"));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("items-list.csv"));
 
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 String[] fields = line.split("\\|");
 
                 Item item = new Item(Integer.parseInt(fields[0]), fields[1], Double.parseDouble(fields[2]));
+                inventory.add(item);
 
+                bufferedWriter.write(item.getItemSku() + " | " + item.getItemName() + " | " + item.getItemPrice() + "\n");
             }
+
+            bufferedReader.close();
+            bufferedWriter.close();
+
         } catch (IOException e) {
             //throw new RuntimeException(e);
             System.out.println("Unable to read file. Please ensure file is in the correct location and try again.");
         }
+
 
         return inventory;
     }
