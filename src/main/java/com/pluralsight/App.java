@@ -69,37 +69,54 @@ public class App {
 
         while (!choice.equals("5")) {
             switch (choice) {
-                case "1" -> printInventory();
+                case "1":
+                    printInventory();
+                    break;
                 case "2":
                     System.out.println("Enter the item ID: ");
-                    int itemId = scanner.nextInt();
-                    scanner.next();
-                    searchItems(itemId);
+//                    int itemId = scanner.nextInt();
+//                    scanner.next();
+                    //searchItems(itemId);
                     break;
                 case "3":
                     findInRange(promptUserMin(), promptUserMax()); // Find a way to return a filtered down arraylist
                     break;
                 case "4":
                     System.out.println("Enter the SKU: ");
-                    int itemSku = scanner.nextInt();
-                    scanner.next();
-
-                    System.out.println("Enter the item name: ");
-                    String item
-                    addItem();
-
+//                    int itemSku = scanner.nextInt();
+//                    scanner.next();
+//                    System.out.println("Enter the item name: ");
+//                    String item;
+                    //addItem();
+                case "5":
+                    System.out.println("Goodbye.");
+                    break;
+                default:
+                    System.out.println("Invalid choice, please select from the menu options above.");
+                    break;
             }
+            System.out.println("""
+                What would you like to do?
+                1 - List all products
+                2 - Lookup a product by it's ID
+                3 - Find all products within a price range
+                4 - Add a new product
+                5 - Quit the application
+                
+                Enter command: """);
+
+            choice = scanner.nextLine();
         }
     }
 
-    private static Item searchItems(int sku) {
-
-    }
+//    private static Item searchItems(int sku) {
+//
+//    }
 
     private static double promptUserMin() {
         System.out.println("Enter minimum price: ");
         double minPrice = scanner.nextDouble();
-        scanner.next();
+//        scanner.next();
 
         return minPrice;
     }
@@ -107,7 +124,7 @@ public class App {
     private static double promptUserMax() {
         System.out.println("Enter the maximum price: ");
         double maxPrice = scanner.nextDouble();
-        scanner.next();
+//        scanner.next();
 
         return maxPrice;
     }
