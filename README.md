@@ -18,9 +18,37 @@ A command-line application that reads a hardware store inventory list from a fil
 5. The program will automatically generate the new `item-list.csv` file.
 
 ## Interesting code
+```java
+private static ArrayList<Item> getInventory() {
+        ArrayList<Item> inventory = new ArrayList<>();
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("inventory.csv"));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("items-list.csv"));
 
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] fields = line.split("\\|");
+
+                Item item = new Item(Integer.parseInt(fields[0]), fields[1], Double.parseDouble(fields[2]));
+                inventory.add(item);
+
+                bufferedWriter.write(item.getItemSku() + " | " + item.getItemName() + " | " + item.getItemPrice() + "\n");
+            }
+
+            bufferedReader.close();
+            bufferedWriter.close();
+
+        } catch (IOException e) {
+            //throw new RuntimeException(e);
+            System.out.println("Unable to read file. Please ensure file is in the correct location and try again.");
+        }
+
+
+        return inventory;
+    }
+```
 
 ## Screenshots
-
+![The menu the user is prompted for](images/display-menu.png)
 
 
